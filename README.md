@@ -20,7 +20,11 @@ Create a file named `.env`
 Your .env file should look something like this:
 ```
 discordBotToken=<botToken>
-discordAuthorID=<authorID>
+discordAuthorID=<yourDiscordID>
+discordWebHookURL=<discordWebHookURL>
+
+requestSecret=<yourAuthSecret>
+uptimeRobotToken=<uptimeRobotAPIToken>
 ```
 When you hit start everything should startup fine.
 
