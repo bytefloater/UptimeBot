@@ -1,4 +1,4 @@
-# UptimeRobot (Discord Bot)
+# UptimeRobot (Discord Bot) - Rest API Dev Repl
 This bot is a fork of the Discord.py bot template making use of the commands extension and [cogs](https://discordpy.readthedocs.io/en/latest/ext/commands/cogs.html). It will integrate with the UptimeRobot API to allow the end-user to manage their Uptime and Monitor status through Discord.
 
 
@@ -11,7 +11,7 @@ Enter your new application and under the bots section, select "Add Bot". When pr
 
 Once the bot account is created, you will need to copy its token.
 
-![Bot token area](https://i.imgur.com/da0ktMC.png)
+![Bot token area](https://UptimeBot-REST-API.bytefloater.repl.co/static/images/Bot-2.png)
 
 
 ## Setup
@@ -36,3 +36,7 @@ Go to [uptimerobot.com](https://uptimerobot.com/) and create an accout, if you d
 + For your url, put the url of the website made for your repl.
 + Select any alert contacts you want, then click "Create Monitor" 
 ![Uptime robot example](https://i.imgur.com/Qd9LXEy.png)
+
+## Links
+
+for all params, see https://discordapp.com/developers/docs/resources/webhook#execute-webhook
