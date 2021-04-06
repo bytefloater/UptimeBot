@@ -15,8 +15,12 @@ class UptimeRobot(commands.Cog):
         self.bot = bot
         self._last_member = None
 
+    '''
+    Retrieves monitor info and returns embed to discord
+    '''
     @commands.command(name='getMonitors', aliases=['gm'])
     async def getMonitors(self, ctx):
+        await ctx.message.delete()
         embed = discord.Embed()
         embed.title = 'Monitor Information'
         embed.timestamp = datetime.datetime.now()
@@ -30,8 +34,8 @@ class UptimeRobot(commands.Cog):
         for status in range(len(statuses)):
             statuses[status] = getFriendlyNames.monitorStatus(statuses[status])
 
-        print(friendly_names)
-        print(statuses)
+        console.log(friendly_names, 'no_decorator')
+        console.log(statuses, 'no_decorator')
 
         fields = [
             {
@@ -54,6 +58,24 @@ class UptimeRobot(commands.Cog):
 
 
     '''
+    Retrieves account info and returns embed to discord
+    '''
+    @commands.command(name='getAccountInfo', aliases=['gai', 'gad'])
+    async def getAccountInfo(self, ctx):
+        # await ctx.message.delete()
+        embed = discord.Embed()
+        embed.title = 'Account Information'
+        embed.timestamp = datetime.datetime.now()
+
+        accountInfo = await self.fetch('getAccountDetails')
+        accountInfo = accountInfo.json()['account']
+        console.log('Response Received')
+        print(accountInfo)
+
+
+
+
+    '''
     Retrieves information for GET commands in the UptimeRobot API
     '''
     async def fetch(self, APIFunction):
@@ -68,6 +90,7 @@ class UptimeRobot(commands.Cog):
         console.log(f'Fetching Information: {url}')
         return response
 
+
     def concatResponses(self, inputData, field):
         arr = []
         for i in range(len(inputData)):
@@ -76,17 +99,26 @@ class UptimeRobot(commands.Cog):
         console.log(arr, 'no_decorator')
         return arr
 
+
     def stringifyValues(self, inputData):
         print(inputData)
         output = ""
-        counter = 0
         for item in inputData:
-            counter += 1
-            output = output + item + '\n'
+            output = output + item + '\n'  # Discord will ignore the final return.
         return output
 
 
-            
+    @commands.command(name='authTest')
+    async def authTest(self, ctx):
+        await ctx.message.delete()
+        authorID = ctx.message.author.id
+
+        if str(authorID) == os.environ.get('discordAuthorID'):
+            await ctx.send('Authorised')
+        else:
+            await ctx.send('You are not authorised')
+
+              
 
     @commands.command(name='createMonitor', aliases=['cm'])
     async def createMonitor(self, ctx):
