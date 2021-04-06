@@ -7,11 +7,10 @@ To use this bot, if you don't already have a Discord Bot you will be required to
 
 Enter your new application and under the bots section, select "Add Bot". When prompted for confirmation, select "Yes, do it!"
 
-![Left panel](https://i.imgur.com/hECJYWK.png)
+![Left panel](../webserver/static/images/Bots-1.png)
 
 Once the bot account is created, you will need to copy its token.
-
-![Bot token area](https://UptimeBot.bytefloater.repl.co/static/images/Bot-2.png)
+![](../webserver/static/images/Bots-2.png)
 
 
 ## Setup
