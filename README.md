@@ -7,10 +7,10 @@ To use this bot, if you don't already have a Discord Bot you will be required to
 
 Enter your new application and under the bots section, select "Add Bot". When prompted for confirmation, select "Yes, do it!"
 
-![Left panel](/webserver/static/images/Bots-1.png)
+![Discord Bot Section with Confirmation Popup](/webserver/static/images/Bots-1.png)
 
 Once the bot account is created, you will need to copy its token.
-![](/webserver/static/images/Bots-2.png)
+![Discord Bot Section for Copying Token](/webserver/static/images/Bots-2.png)
 
 
 ## Setup
