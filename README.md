@@ -43,6 +43,5 @@ Go to [UptimeRobot](https://uptimerobot.com/) and create an accout, if you dont 
 
 ## Documentation
 
-For all embed parametes, see the [Discord Webhook Documentation](https://discordapp.com/developers/docs/resources/webhook#execute-webhook)
-
-For the API Documentation, visit the [UptimeRobot RESET API Docs](https://uptimerobot.com/api).
++ For all embed parametes, see the [Discord Webhook Documentation](https://discordapp.com/developers/docs/resources/webhook#execute-webhook)
++ For the API Documentation, visit the [UptimeRobot RESET API Docs](https://uptimerobot.com/api).
