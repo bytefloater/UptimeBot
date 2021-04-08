@@ -12,7 +12,6 @@ app = Flask('UptimeBot Web Interface',
             template_folder='webserver'
             )
 
-
 @app.route('/')
 def home():
 	return render_template('index.html')

@@ -40,7 +40,7 @@ Go to [UptimeRobot](https://uptimerobot.com/) and create an accout, if you dont 
 + Select any alert contacts you want, then click "Create Monitor" 
 ![Uptime robot example](https://i.imgur.com/Qd9LXEy.png)
 
-## Documentation
 
+## Documentation
 + For all embed parametes, see the [Discord Webhook Documentation](https://discordapp.com/developers/docs/resources/webhook#execute-webhook)
 + For the API Documentation, visit the [UptimeRobot RESET API Docs](https://uptimerobot.com/api).
