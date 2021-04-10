@@ -20,3 +20,15 @@ def monitorStatus(statusIndex):
                 '8': 'seems down',
                 '9': 'down'}
     return statuses[statusIndex]
+
+def pspStatus(statusIndex):
+    statuses = {'0': 'paused',
+                '1': 'active'}
+    return statuses[statusIndex]
+
+def pspSort(sortIndex):
+    sorts = {'1': 'friendly name (a-z)',
+             '2': 'friendly name (z-a)',
+             '3': 'status (up-down-paused)',
+             '4': 'status (down-up-paused)'}
+    return sorts[sortIndex]

@@ -7,7 +7,6 @@ import requests
 import getFriendlyNames
 import json
 
-
 uptimeRobotRootEndpoint = "https://api.uptimerobot.com/v2"
 
 
@@ -15,6 +14,7 @@ class UptimeRobot(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._last_member = None
+
 
     '''
     Retrieves monitor info and returns embed to discord
@@ -35,19 +35,16 @@ class UptimeRobot(commands.Cog):
         for status in range(len(statuses)):
             statuses[status] = getFriendlyNames.monitorStatus(statuses[status])
 
-        console.log(friendly_names, 'no_decorator')
-        console.log(statuses, 'no_decorator')
+        #console.log(friendly_names, 'no_decorator')
+        #console.log(statuses, 'no_decorator')
 
-        fields = [
-            {
-                "name": "**Monitor Title**",
-                "value": self.stringifyValues(friendly_names),
-            },
-            {
-                "name": "**Status**",
-                "value": self.stringifyValues(statuses),
-            }
-        ]
+        fields = [{
+            "name": "**Monitor Title**",
+            "value": self.stringifyValues(friendly_names),
+        }, {
+            "name": "**Status**",
+            "value": self.stringifyValues(statuses),
+        }]
 
         for field in fields:
             if field['value']:
@@ -72,7 +69,7 @@ class UptimeRobot(commands.Cog):
         accountInfo = accountInfo.json()['account']
         console.log('Response Received')
         print(json.dumps(accountInfo, indent=4))
-        
+
         fields = [
             {
                 "name": "**Email Address**",
@@ -110,8 +107,63 @@ class UptimeRobot(commands.Cog):
                 embed.add_field(name=field['name'],
                                 value=field['value'],
                                 inline=field['inline'])
-        
-        await ctx.send(embed=embed, delete_after=5)
+
+        await ctx.send(embed=embed, delete_after=20)
+
+
+    '''
+    Retrieves Public Status Pages (PSPs) and returns embed to discord
+    '''
+    @commands.command(name='getStatusPages', aliases=['getPSPs'])
+    async def getStatusPages(self, ctx):
+        await ctx.message.delete()
+        embed = discord.Embed()
+        embed.title = 'Status Pages'
+        embed.timestamp = datetime.datetime.now()
+
+        statusPages = await self.fetch('getPSPs')
+        statusPages = statusPages.json()['psps']
+        console.log('Response Received')
+        print(json.dumps(statusPages, indent=4))
+
+
+        friendly_names = self.concatResponses(statusPages, 'friendly_name')
+        statuses = self.concatResponses(statusPages, 'status')
+        for status in range(len(statuses)):
+            statuses[status] = getFriendlyNames.pspStatus(statuses[status])
+
+        fields = [
+            {
+                "name": "**Friendly Name**",
+                "value": self.stringifyValues(friendly_names),
+                "inline": True
+            },
+            {
+                "name": "**Status**",
+                "value": self.stringifyValues(statuses),
+                "inline": True
+            }
+        ]
+
+        for field in fields:
+            if field['value']:
+                embed.add_field(name=field['name'],
+                                value=field['value'],
+                                inline=field['inline'])
+
+        await ctx.send(embed=embed)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -121,28 +173,27 @@ class UptimeRobot(commands.Cog):
     '''
     async def fetch(self, APIFunction):
         url = "{}/{}".format(uptimeRobotRootEndpoint, APIFunction)
-        payload = "api_key={}&format=json".format(os.environ.get('uptimeRobotToken'))
+        payload = "api_key={}&format=json".format(
+            os.environ.get('uptimeRobotToken'))
         headers = {
             'content-type': "application/x-www-form-urlencoded",
             'cache-control': "no-cache"
-            }
-        
+        }
+
         response = requests.request("POST", url, data=payload, headers=headers)
         console.log(f'Fetching Information: {url}')
         return response
-
 
     def concatResponses(self, inputData, field):
         arr = []
         for i in range(len(inputData)):
             arr.append(str(inputData[i][field]))
-        
+
+        console.log(f'Extracting values for: {field}')
         console.log(arr, 'no_decorator')
         return arr
 
-
     def stringifyValues(self, inputData):
-        print(inputData)
         output = ""
         for item in inputData:
             output = output + item + '\n'  # Discord will ignore the final return.
@@ -150,7 +201,6 @@ class UptimeRobot(commands.Cog):
 
     def redactEmail(self, inputData):
         return
-
 
     @commands.command(name='authTest')
     async def authTest(self, ctx):
@@ -164,8 +214,6 @@ class UptimeRobot(commands.Cog):
             await ctx.send('You are not authorised')
             #return False
 
-              
-
     @commands.command(name='createMonitor', aliases=['cm'])
     async def createMonitor(self, ctx):
         await self.commandNotImplemented(ctx, 'createMonitor')
@@ -178,35 +226,7 @@ class UptimeRobot(commands.Cog):
         await ctx.message.delete()
         await ctx.send(f'`Command: {commandName} response not yet implemented.`')
 
-        
-        
-
-
-
-"""
-url = "{}/newMonitor".format(apiRootURL)
-  payloadAttributes = [APIKey, friendlyName, monitorURL]
-  encodedAttributes = []
-
-  console.info("Encoding Payload Attributes")
-  for attribute in payloadAttributes:
-    encodedAttributes.append(query.encode(attribute))
-  
-  payload = "api_key={}&format=json&type=1&url={}&friendly_name={}".format(encodedAttributes[0], encodedAttributes[2], encodedAttributes[1])
-  headers = {
-    'cache-control': "no-cache",
-    'content-type': "application/x-www-form-urlencoded"
-  }
-
-  console.info("Sending Payload")
-  response = requests.request("POST", url, data=payload, headers=headers)
-  
-  json_data = json.loads(response.text)
-  print(response.text)
-  output.generate(json_data)
-
-"""
 
 
 def setup(bot):
-	bot.add_cog(UptimeRobot(bot))
+    bot.add_cog(UptimeRobot(bot))

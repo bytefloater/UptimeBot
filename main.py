@@ -17,7 +17,8 @@ async def on_ready():  # When the bot is ready
     console.log("Logged in as {}".format(bot.user))
 
 extensions = [
-	'cogs.cog_uptimerobot'  # Same name as it would be if you were importing it
+	'cogs.cog_uptimerobot',
+    'cogs.cog_errors'  # Same name as it would be if you were importing it
 ]
 
 if __name__ == '__main__':  # Ensures this is the file being ran
