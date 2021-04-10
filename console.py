@@ -1,5 +1,5 @@
 def log(message, type='info'):
     if type == 'info':
-        print('[i]', message)
+        print('i', message)
     else:
         print('   ', message)

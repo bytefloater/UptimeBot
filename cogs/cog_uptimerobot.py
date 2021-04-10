@@ -7,6 +7,7 @@ import requests
 import getFriendlyNames
 import json
 
+
 uptimeRobotRootEndpoint = "https://api.uptimerobot.com/v2"
 
 
